@@ -1,0 +1,30 @@
+/* 
+const messages = [
+  "Learn React ⚛️",
+  "Apply for jobs 💼",
+  "Invest your new income 🤑",
+];
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  font-size: "20px";
+  cursor: pointer
+}
+
+.buttons>button {
+  align-self: center;
+}

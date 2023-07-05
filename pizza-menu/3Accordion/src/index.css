@@ -1,0 +1,46 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #333;
+  height: 100vh;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 66vh;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fdf4f42d;
+}
+
+.box {
+  border-top: green 5px solid;
+}
+
+
+.open {
+  font-weight: 600;
+}
+
+.snum {
+  opacity: 0.5;
+  font-weight: 700;
+}
+
+.active.snum,
+.active.open {
+  opacity: 1;
+  color: #087f5b;
+}
+
+.response {
+  grid-column: 2/span 4;
+  margin-top: -20px;
+  cursor: pointer;
+  padding-right: 15px;
+}
