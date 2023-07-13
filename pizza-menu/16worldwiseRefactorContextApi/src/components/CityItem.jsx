@@ -21,6 +21,7 @@ const CityItem = ({ city }) => {
         e.preventDefault()
         deleteCity(id)
     }
+
     return (
         <li >
             <Link className={`${styles.cityItem} ${id === currentCity.id ? styles['cityItem--active'] : ''}`} to={`${id}?lat=${lat}&lng=${lng}`}>

@@ -20,7 +20,8 @@ function useCities() {
 const initialState = {
     cities: [],
     isLoading: false,
-    currentCity: {}
+    currentCity: {},
+    error: null
 }
 
 function reducer(state, action) {
@@ -33,7 +34,6 @@ function reducer(state, action) {
         case 'RECEIVED_CITY':
             return {
                 ...state, cities: action.payload,
-                isLoading: true
             }
 
         case 'CURRENT_CITY':
@@ -44,11 +44,18 @@ function reducer(state, action) {
         case 'ADD_NEW_CITY':
             return {
                 ...state, cities: ([...state.cities, action.payload]),
+                currentCity: action.payload
             }
 
         case 'DELETE_CITY':
             return {
                 ...state, cities: state.cities.filter(c => c.id !== action.payload),
+                currentCity: {}
+            }
+
+        case 'ERROR':
+            return {
+                ...state, error: action.payload
             }
 
         default:
@@ -68,18 +75,22 @@ function CitiesProvider({ children }) {
             try {
                 dispatch({ type: 'SET_LOADING', payload: true })
                 const res = await fetch(`${BASE_URL}/cities`);
+
+                if (!res.ok) throw new Error("There was an error loading the data...")
+
                 const data = await res.json();
-                console.log(data)
+                // console.log(data)
                 dispatch({ type: 'RECEIVED_CITY', payload: data })
-            } catch {
-                alert("There was an error loading the data...")
+            } catch (err) {
+                console.error(err.message)
+                dispatch({ type: 'ERROR', payload: 'err.message' })
             } finally {
                 dispatch({ type: 'SET_LOADING', payload: false })
             }
         }
         fetchCities()
     }, [])
-    console.log(cities)
+    // console.log(cities)
 
 
     async function addNewCity(newCity) {
@@ -99,7 +110,6 @@ function CitiesProvider({ children }) {
             alert("There was an error while creating city...")
         } finally {
             dispatch({ type: 'SET_LOADING', payload: false })
-
         }
     }
 
@@ -121,10 +131,9 @@ function CitiesProvider({ children }) {
     }
 
 
-
-
-
+    //fetch data for acity base on its Id
     async function getCity(id) {
+        if (Number(id) === currentCity.id) return;//if city clicked is clicked again load from cache 
         try {
             dispatch({ type: 'SET_LOADING', payload: true })
             const res = await fetch(`${BASE_URL}/cities/${id}`);

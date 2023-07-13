@@ -227,6 +227,222 @@
         "lng": "-3.8891601562500004"
       },
       "id": 98443217
+    },
+    {
+      "cityName": "Calamocha",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-11T22:34:06.788Z",
+      "notes": "bm",
+      "position": {
+        "lat": "40.88029480552824",
+        "lng": "-1.1865234375000002"
+      },
+      "id": 98443218
+    },
+    {
+      "cityName": "Sinarcas",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-11T22:34:06.788Z",
+      "notes": "",
+      "position": {
+        "lat": "39.757879992021756",
+        "lng": "-1.2524414062500002"
+      },
+      "id": 98443219
+    },
+    {
+      "cityName": "Luque",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-11T22:34:06.788Z",
+      "notes": "hk",
+      "position": {
+        "lat": "37.59682400108367",
+        "lng": "-4.284667968750001"
+      },
+      "id": 98443220
+    },
+    {
+      "cityName": "Quintana y Congosto",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-11T22:34:06.788Z",
+      "notes": "bm",
+      "position": {
+        "lat": "42.293564192170095",
+        "lng": "-6.152343750000001"
+      },
+      "id": 98443221
+    },
+    {
+      "cityName": "Malpartida De Plasencia",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-11T23:41:43.756Z",
+      "notes": "",
+      "position": {
+        "lat": "40.04443758460859",
+        "lng": "-5.976562500000001"
+      },
+      "id": 98443223
+    },
+    {
+      "cityName": "Cáceres",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:24:44.747Z",
+      "notes": "",
+      "position": {
+        "lat": "39.35129035526705",
+        "lng": "-6.767578125000001"
+      },
+      "id": 98443226
+    },
+    {
+      "cityName": "Bacúch",
+      "country": "Slovakia",
+      "emoji": "🇸🇰",
+      "date": "2023-07-13T00:26:00.209Z",
+      "notes": "",
+      "position": {
+        "lat": "48.80686346108519",
+        "lng": "19.775390625"
+      },
+      "id": 98443227
+    },
+    {
+      "cityName": "Kułakowice Pierwsze",
+      "country": "Poland",
+      "emoji": "🇵🇱",
+      "date": "2023-07-13T00:26:00.209Z",
+      "notes": "",
+      "position": {
+        "lat": "50.88917404890332",
+        "lng": "23.818359375000004"
+      },
+      "id": 98443228
+    },
+    {
+      "cityName": "Mora",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:47:30.320Z",
+      "notes": "",
+      "position": {
+        "lat": "39.6733703917656",
+        "lng": "-3.6914062500000004"
+      },
+      "id": 98443229
+    },
+    {
+      "cityName": "Castuera",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:53:31.631Z",
+      "notes": "",
+      "position": {
+        "lat": "38.839707613545144",
+        "lng": "-5.537109375000001"
+      },
+      "id": 98443230
+    },
+    {
+      "cityName": "Sacedón",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:56:16.971Z",
+      "notes": "",
+      "position": {
+        "lat": "40.49709237269567",
+        "lng": "-2.7026367187500004"
+      },
+      "id": 98443231
+    },
+    {
+      "cityName": "Añora",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:56:39.159Z",
+      "notes": "",
+      "position": {
+        "lat": "38.34165619279595",
+        "lng": "-4.899902343750001"
+      },
+      "id": 98443232
+    },
+    {
+      "cityName": "Povedilla",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T00:59:27.994Z",
+      "notes": "",
+      "position": {
+        "lat": "38.70265930723801",
+        "lng": "-2.5927734375000004"
+      },
+      "id": 98443233
+    },
+    {
+      "cityName": "Barreiro e Lavradio",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2023-07-13T01:16:51.419Z",
+      "notes": "",
+      "position": {
+        "lat": "38.68658172716673",
+        "lng": "-9.062347412109377"
+      },
+      "id": 98443234
+    },
+    {
+      "cityName": "Moita",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2023-07-13T01:16:51.419Z",
+      "notes": "",
+      "position": {
+        "lat": "38.65066208578038",
+        "lng": "-8.982009887695314"
+      },
+      "id": 98443235
+    },
+    {
+      "cityName": "Pinhal Novo",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2023-07-13T01:18:22.627Z",
+      "notes": "",
+      "position": {
+        "lat": "38.65012583524745",
+        "lng": "-8.93669128417969"
+      },
+      "id": 98443236
+    },
+    {
+      "cityName": "Puebla De Guzmán",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-13T01:33:33.579Z",
+      "notes": "",
+      "position": {
+        "lat": "37.61423141542417",
+        "lng": "-7.338867187500001"
+      },
+      "id": 98443237
+    },
+    {
+      "cityName": "Municipal Unit of Kamena Vourla",
+      "country": "Greece",
+      "emoji": "🇬🇷",
+      "date": "2023-07-13T01:47:56.434Z",
+      "notes": "",
+      "position": {
+        "lat": "38.685509760012025",
+        "lng": "22.763671875000004"
+      },
+      "id": 98443238
     }
   ]
 }

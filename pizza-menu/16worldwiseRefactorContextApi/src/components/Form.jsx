@@ -1,8 +1,10 @@
-// "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
+//https://api.geoapify.com/v1/geocode/reverse
 
 import { useEffect, useReducer } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from "./Form.module.css";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +83,7 @@ function Form() {
   const { isLoadingGeocoding, cityName, country, date, notes, emoji, geoCodingError } = state
 
   const { lat, lng } = useUrlPosition()
-  const { addNewCity, isLoading } = useCities()
+  const { addNewCity, cities, isLoading } = useCities()
   const navigate = useNavigate();
 
   const BASE_URL = 'https://api.geoapify.com/v1/geocode/reverse'
@@ -128,6 +130,12 @@ function Form() {
 
     const newCity = { cityName, country, emoji, date, notes, position: { lat, lng } }
 
+    const dontAddCityIfItExist = cities.map(city => city.cityName === newCity.cityName)
+    const bool = dontAddCityIfItExist.find(b => b === true)
+    const notify = () => toast.error("City already exists in list")
+    if (bool === true) notify()
+    if (bool === true) return
+
     await addNewCity(newCity)
     navigate('/app')
     // console.log(newCity)
@@ -173,6 +181,7 @@ function Form() {
         <Button disable={disableAddButton} type='primary'>Add</Button>
         <BackButton />
       </div>
+      <ToastContainer />
     </form>
   );
 }
