@@ -1,7 +1,12 @@
 import { memo } from 'react'
+import { useQuiz } from '../hook/QuizContext'
 
+const ProgressBar = () => {
+    const { points: totalPointsAcquired, sortedQuestions, answer, index: curQuestionNum } = useQuiz()
 
-const ProgressBar = ({ numQuestions, curQuestionNum, totalPossiblePoints, answer, totalPointsAcquired }) => {
+    const numQuestions = sortedQuestions.length
+    const totalPoints = sortedQuestions.reduce((prev, cur) => prev + cur.points, 0)
+
     // const currentQuestion = answer === null ? indexOf(numQuestions) + 1 : ''
     return (
         <header className="progress">
@@ -10,7 +15,7 @@ const ProgressBar = ({ numQuestions, curQuestionNum, totalPossiblePoints, answer
 
             <p>  {`Question ${curQuestionNum + 1}/${numQuestions}`} </p>
 
-            <p>{totalPointsAcquired} / {totalPossiblePoints} points</p >
+            <p>{totalPointsAcquired} / {totalPoints} points</p >
         </header>
     )
 }

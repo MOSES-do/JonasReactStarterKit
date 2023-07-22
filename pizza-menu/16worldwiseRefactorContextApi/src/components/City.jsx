@@ -6,8 +6,6 @@ import { useEffect } from 'react'
 import BackButton from "./BackButton";
 import { useCities } from "../context/CitiesContext";
 
-
-/*eslint-disable*/
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -25,7 +23,7 @@ function City() {
 
   useEffect(() => {
     getCity(id) //child to parent communication
-  }, [id])
+  }, [id, getCity])
 
 
   const { cityName, emoji, date, notes } = currentCity;

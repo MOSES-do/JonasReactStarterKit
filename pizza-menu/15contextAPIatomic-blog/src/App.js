@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { ContextProvider, useStateContext } from './hook/useContext';
 import { faker } from "@faker-js/faker";
-
+// import Test from './Test'
 
 
 
 function App() {
+  const [isFakeDark, setIsFakeDark] = useState(false);
+
+  useEffect(
+    function () {
+      document.documentElement.classList.toggle("fake-dark-mode");
+    },
+    [isFakeDark]
+  );
+
   return (
     <ContextProvider>
       <section>
-        <Button />
-
+        <button
+          onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+          className="btn-fake-dark-mode"
+        >
+          {isFakeDark ? "☀️" : "🌙"}
+        </button>
         <Header />
         <Main />
         <Archive />
@@ -20,18 +33,18 @@ function App() {
   )
 }
 
-const Button = () => {
-  const { isFakeDark, setIsFakeDark } = useStateContext();
+// const Button = () => {
+//   const { isFakeDark, setIsFakeDark } = useStateContext();
 
-  return <button
-    onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
-    className="btn-fake-dark-mode"
-  >
-    {isFakeDark ? "☀️" : "🌙"}
-  </button>
-}
+//   return <button
+//     onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+//     className="btn-fake-dark-mode"
+//   >
+//     {isFakeDark ? "☀️" : "🌙"}
+//   </button>
+// }
 
-function Header() {
+const Header = memo(function Header() {
   const { onClearPosts } = useStateContext();
   return (
     <header>
@@ -45,7 +58,7 @@ function Header() {
       </div>
     </header>
   );
-}
+})
 
 function SearchPosts() {
   const { searchQuery, setSearchQuery } = useStateContext()
@@ -64,14 +77,14 @@ function Results() {
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
 
-function Main({ posts, onAddPost }) {
+const Main = memo(function Main({ posts, onAddPost }) {
   return (
     <main>
       <FormAddPost onAddPost={onAddPost} />
       <Posts posts={posts} />
     </main>
   );
-}
+})
 
 function Posts() {
   return (
@@ -116,18 +129,24 @@ function List() {
   const { posts } = useStateContext()
 
   return (
-    <ul>
-      {posts.map((post, i) => (
-        <li key={i}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {posts.map((post, i) => (
+          <li key={i}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+      {/* <Test /> */}
+    </>
   );
 }
 
-function Archive() {
+
+
+
+const Archive = memo(function Archive() {
   const { onAddPost } = useStateContext()
 
   function createRandomPost() {
@@ -165,10 +184,10 @@ function Archive() {
       )}
     </aside>
   );
-}
+})
 
-function Footer() {
+const Footer = memo(function Footer() {
   return <footer>&copy; by The Atomic Blog ✌️</footer>;
-}
+})
 
 export default App;

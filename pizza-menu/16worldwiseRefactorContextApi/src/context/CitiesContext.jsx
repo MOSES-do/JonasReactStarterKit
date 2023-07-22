@@ -1,5 +1,5 @@
-import { useReducer, useEffect, createContext, useContext } from 'react'
-
+import { useReducer, useEffect, createContext, useContext, useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 const BASE_URL = 'http://localhost:9000'
 
@@ -8,14 +8,8 @@ const BASE_URL = 'http://localhost:9000'
 
 const CitiesContext = createContext()
 
-function useCities() {
-    const context = useContext(CitiesContext);
-    if (context === undefined)
-        throw new Error('Cities context was used outside the cities provider')
-    return context;
-}
 
-/*eslint-disable*/
+
 
 const initialState = {
     cities: [],
@@ -28,7 +22,12 @@ function reducer(state, action) {
     switch (action.type) {
         case "SET_LOADING":
             return {
-                ...state, isLoading: action.payload,
+                ...state, isLoading: true,
+            }
+
+        case "FINISHED_LOADING":
+            return {
+                ...state, isLoading: false,
             }
 
         case 'RECEIVED_CITY':
@@ -72,8 +71,8 @@ function CitiesProvider({ children }) {
 
     useEffect(() => {
         async function fetchCities() {
+            dispatch({ type: 'SET_LOADING' })
             try {
-                dispatch({ type: 'SET_LOADING', payload: true })
                 const res = await fetch(`${BASE_URL}/cities`);
 
                 if (!res.ok) throw new Error("There was an error loading the data...")
@@ -85,7 +84,7 @@ function CitiesProvider({ children }) {
                 console.error(err.message)
                 dispatch({ type: 'ERROR', payload: 'err.message' })
             } finally {
-                dispatch({ type: 'SET_LOADING', payload: false })
+                dispatch({ type: 'FINISHED_LOADING' })
             }
         }
         fetchCities()
@@ -94,8 +93,8 @@ function CitiesProvider({ children }) {
 
 
     async function addNewCity(newCity) {
+        dispatch({ type: 'SET_LOADING' })
         try {
-            dispatch({ type: 'SET_LOADING', payload: true })
             const res = await fetch(`${BASE_URL}/cities`, {
                 method: 'POST',
                 headers: {
@@ -109,14 +108,14 @@ function CitiesProvider({ children }) {
         } catch {
             alert("There was an error while creating city...")
         } finally {
-            dispatch({ type: 'SET_LOADING', payload: false })
+            dispatch({ type: 'FINISHED_LOADING' })
         }
     }
 
 
     async function deleteCity(id) {
+        dispatch({ type: 'SET_LOADING' })
         try {
-            dispatch({ type: 'SET_LOADING', payload: true })
             await fetch(`${BASE_URL}/cities/${id}`, {
                 method: 'DELETE'
             });
@@ -126,25 +125,25 @@ function CitiesProvider({ children }) {
         } catch {
             alert("There was an error while deleting city...")
         } finally {
-            dispatch({ type: 'SET_LOADING', payload: false })
+            dispatch({ type: 'FINISHED_LOADING' })
         }
     }
 
 
     //fetch data for acity base on its Id
-    async function getCity(id) {
+    const getCity = useCallback(async function getCity(id) {
         if (Number(id) === currentCity.id) return;//if city clicked is clicked again load from cache 
+        dispatch({ type: 'SET_LOADING' })
         try {
-            dispatch({ type: 'SET_LOADING', payload: true })
             const res = await fetch(`${BASE_URL}/cities/${id}`);
             const data = await res.json();
             dispatch({ type: 'CURRENT_CITY', payload: data })
         } catch {
-            alert("There was an error loading the data...")
+            alert("There was an error loading the city...")
         } finally {
-            dispatch({ type: 'SET_LOADING', payload: false })
+            dispatch({ type: 'FINISHED_LOADING' })
         }
-    }
+    }, [currentCity.id])
 
     return (
         <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity, addNewCity, deleteCity }}>
@@ -153,7 +152,16 @@ function CitiesProvider({ children }) {
     )
 }
 
+CitiesProvider.propTypes = {
+    children: PropTypes.any.isRequired
+}
 
+function useCities() {
+    const context = useContext(CitiesContext);
+    if (context === undefined)
+        throw new Error('Cities context was used outside the cities provider')
+    return context;
+}
 
 export { CitiesProvider, useCities }
 

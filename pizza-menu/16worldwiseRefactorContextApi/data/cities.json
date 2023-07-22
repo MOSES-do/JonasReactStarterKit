@@ -443,6 +443,78 @@
         "lng": "22.763671875000004"
       },
       "id": 98443238
+    },
+    {
+      "cityName": "Población De Arroyo",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-14T02:11:50.494Z",
+      "notes": "",
+      "position": {
+        "lat": "42.32606244456202",
+        "lng": "-4.877929687500001"
+      },
+      "id": 98443239
+    },
+    {
+      "cityName": "Queiriga",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2023-07-14T02:19:26.901Z",
+      "notes": "",
+      "position": {
+        "lat": "40.81380923056961",
+        "lng": "-7.756347656250001"
+      },
+      "id": 98443240
+    },
+    {
+      "cityName": "Canha",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2023-07-14T02:41:47.304Z",
+      "notes": "",
+      "position": {
+        "lat": "38.76907496033501",
+        "lng": "-8.632507324218752"
+      },
+      "id": 98443241
+    },
+    {
+      "cityName": "Manzanares",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-14T02:46:07.012Z",
+      "notes": "",
+      "position": {
+        "lat": "39.07890809706475",
+        "lng": "-3.27392578125"
+      },
+      "id": 98443242
+    },
+    {
+      "cityName": "Alconera",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-14T03:22:03.341Z",
+      "notes": "",
+      "position": {
+        "lat": "38.37611542403604",
+        "lng": "-6.481933593750001"
+      },
+      "id": 98443243
+    },
+    {
+      "cityName": "Hornillos De Eresma",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-15T04:44:43.452Z",
+      "notes": "",
+      "position": {
+        "lat": "41.32732632036624",
+        "lng": "-4.680175781250001"
+      },
+      "id": 98443244
     }
   ]
 }

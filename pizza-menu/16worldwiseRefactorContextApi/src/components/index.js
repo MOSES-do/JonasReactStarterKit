@@ -13,6 +13,7 @@ import CityList from './CityList'
 import CountryList from './CountryList'
 import Form from './Form'
 import Button from './Button'
+import SpinnerFullPage from './SpinnerFullPage'
 
 
-export { AppNav, PageNav, Logo, City, CountryItem, Footer, Map, Sidebar, Message, Spinner, User, CityList, CountryList, Form, Button } 
+export { AppNav, PageNav, Logo, City, CountryItem, Footer, Map, Sidebar, Message, Spinner, User, CityList, CountryList, Form, Button, SpinnerFullPage } 

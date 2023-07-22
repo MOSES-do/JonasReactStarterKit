@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react'
+import { useQuiz } from '../hook/QuizContext'
 
-const StartScreen = ({ dispatch, mode }) => {
+
+const QuizMode = ({ sortBy, dispatch, disabled }) => {
+    return (
+        <div>
+            <select className="drop" value={sortBy} onChange={(e) => dispatch({ type: 'setSortBy', payload: e.target.value })} disabled={disabled}>
+                <option value="">Choose difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="difficult">Difficult</option>
+            </select>
+        </div>
+    )
+}
+
+
+const StartScreen = () => {
+
+    const { chooseNumOfQuestions, sortBy, dispatch } = useQuiz()
+
     const [questions, setQuestions] = useState([])
     const [active, setActive] = useState('b')
     const numOfQuestions = questions.length;
     const activeBtn = active === 'a'
+
+    const disabled = chooseNumOfQuestions === questions.length;
+
 
     useEffect(() => {
         fetch("http://localhost:9000/questions")
@@ -49,7 +70,7 @@ const StartScreen = ({ dispatch, mode }) => {
                     })}
                 </select>
 
-                {mode}
+                <QuizMode sortBy={sortBy} dispatch={dispatch} disabled={disabled} />
             </div>
             <button disabled={!activeBtn} style={{ marginTop: '30px' }} className="btn btn-ui" onClick={() => handleBtnActive()}>Let's start</button>
         </div >

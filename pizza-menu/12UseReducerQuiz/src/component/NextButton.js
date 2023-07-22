@@ -1,5 +1,9 @@
+import { useQuiz } from "../hook/QuizContext"
 
-const NextButton = ({ dispatch, answer, questions, curQuestionNum }) => {
+
+const NextButton = () => {
+
+    const { dispatch, index: curQuestionNum, answer, sortedQuestions: questions } = useQuiz()
     if (answer === null) return null
     // console.log(curQuestionNum + 1, questions.length)
     const handleClick = () => {
