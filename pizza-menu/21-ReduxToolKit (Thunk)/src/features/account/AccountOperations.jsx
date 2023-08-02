@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deposit, withdraw, requestLoan, payLoan, cur } from './accountSlice'
+import { deposit, withdraw, requestLoan, payLoan } from './accountSlice'
 import { FormatCurrency } from '../currencyFormat'
 
 
@@ -18,16 +18,12 @@ function AccountOperations() {
   const { loan, loanPurpose: curLoanPurpose, isLoading } = useSelector((store) => store.account)
   // console.log(users)
 
-  useEffect(() => {
-    dispatch(cur(currency))
-  }, [currency, dispatch]);
 
   function handleDeposit() {
     if (!depositAmount) return
-    // dispatch(deposit(depositAmount, currency));
-    dispatch(deposit(depositAmount));
+    dispatch(deposit(depositAmount, currency));
     setDepositAmount("")
-    setCurrency("")
+    setCurrency("USD")
   }
 
   function handleWithdrawal() {
