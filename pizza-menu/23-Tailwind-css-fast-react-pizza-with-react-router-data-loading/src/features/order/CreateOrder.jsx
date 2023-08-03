@@ -13,40 +13,16 @@ const isValidPhone = (str) =>
     str
   );
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
-
 
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
-
+  const cart = useSelector(state => state.cart.cart);
+console.log(cart)
   const navigation = useNavigation()
   const isSubmitting = navigation.state === "submitting"
-  console.log(navigation.state)
+  // console.log(navigation.state)
 
-  const username = useSelector(state=>state.user.username)
+  const username = useSelector(state => state.user.username)
 
   //useActionData is mostly used to return errors to be displayed in the U.I
   const formErrors = useActionData()
@@ -60,13 +36,13 @@ function CreateOrder() {
         <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
           <label className="sm:basis-40">First Name:</label>
           <div className="grow">
-          <input type="text" name="customer" defaultValue={username} required className="input w-full"/>
+            <input type="text" name="customer" defaultValue={username} required className="input w-full" />
           </div>
         </div>
 
         <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
           <label className="sm:basis-40">Phone number:</label>
-            <div className='grow'>
+          <div className='grow'>
             <input type="tel" name="phone" required className="input w-full" />
             {formErrors?.phone && <p className='text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md'>{formErrors.phone}</p>}
           </div>
@@ -75,7 +51,7 @@ function CreateOrder() {
         <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
           <label className="sm:basis-40">Address:</label>
           <div className='grow'>
-            <input type="text" name="address" required className="input w-full"/>
+            <input type="text" name="address" required className="input w-full" />
           </div>
         </div>
 

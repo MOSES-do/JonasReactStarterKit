@@ -28,7 +28,7 @@ import { Link } from "react-router-dom"
 // }
 
 
-const Button = ({ children, disabled, to, centerAlign, type  }) => {
+const Button = ({ children, style, disabled, to, centerAlign, type, onClick  }) => {
 
     const base = `bg-yellow-400 text-sm uppercase font-semibold text-stone-800 inline-block tracking-wide rounded-full hover:bg-yellow-300  transition-colors duration-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:bg-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed  ${centerAlign}`
 
@@ -39,6 +39,10 @@ const Button = ({ children, disabled, to, centerAlign, type  }) => {
     }
 
     if (to) return <Link to={to} className={styles[type]} >{children}</Link>
+
+    if (onClick) return <button onClick={onClick} disabled={disabled} style={{ opacity: style ? "40%" : "" }}       className={styles[type]} >{children}</button>
+
+    if (style) return <button disabled={disabled} style={{ opacity: style ? "40%" : "" }} onClick={onClick} className={styles[type]} >{children}</button>
 
     return <button disabled={disabled} className={styles[type]} >{children}</button>
 }
