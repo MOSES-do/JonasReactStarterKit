@@ -12,7 +12,7 @@ const AppLayout = () => {
         // <div className="relative flex justify-between  flex-col h-[100vh]  ">
         <div className="grid relative grid-rows-[auto_1fr_auto] h-screen">
 
-                {isLoading && <Spinner />}
+            {isLoading && <Spinner />}
             <Header />
 
             <main className="overflow-scroll">

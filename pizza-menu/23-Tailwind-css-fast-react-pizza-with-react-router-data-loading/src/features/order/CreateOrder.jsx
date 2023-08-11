@@ -1,11 +1,15 @@
 /*eslint-disable*/
-import { useState } from "react";
+import {useState} from 'react'
 import { Form, redirect, useActionData } from 'react-router-dom'
 import { createOrder } from "../../services/apiRestaurant";
 import { useNavigation } from "react-router-dom"
 import Button from '../../ui/Button'
-import { useSelector } from "react-redux";
-
+import {  useDispatch, useSelector } from "react-redux";
+import { clearCart, getCart, getTotalCartPrice } from '../cart/cartSlice';
+import  {fetchAddress}  from '../user/userSlice';
+import store from '../../store'
+import EmptyCart from '../cart/EmptyCart'
+import { formatCurrency } from '../../utils/helpers';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -15,17 +19,28 @@ const isValidPhone = (str) =>
 
 
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = useSelector(state => state.cart.cart);
-console.log(cart)
+  const cart = useSelector(getCart);
+  const [withPriority, setWithPriority] = useState(false);
+  const totalCartPrice = useSelector(getTotalCartPrice);
+
+  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
+  const totalPrice = totalCartPrice + priorityPrice;
+// console.log(cart)
+
+const dispatch = useDispatch()
+
   const navigation = useNavigation()
   const isSubmitting = navigation.state === "submitting"
   // console.log(navigation.state)
 
-  const username = useSelector(state => state.user.username)
+  const {username, status:addressStatus, position, address, error:errorAddress} = useSelector(state => state.user)
+
+  const isLoadingAddress = addressStatus  === 'loading'
 
   //useActionData is mostly used to return errors to be displayed in the U.I
   const formErrors = useActionData()
+
+    if(!cart.length) return <EmptyCart/>
 
   return (
     <div className="h-full px-8 sm:px-16 flex flex-col justify-center">
@@ -36,23 +51,34 @@ console.log(cart)
         <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
           <label className="sm:basis-40">First Name:</label>
           <div className="grow">
-            <input type="text" name="customer" defaultValue={username} required className="input w-full" />
+            <input type="text" name="customer" defaultValue={username}  className="input w-full" />
           </div>
         </div>
 
         <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
           <label className="sm:basis-40">Phone number:</label>
           <div className='grow'>
-            <input type="tel" name="phone" required className="input w-full" />
+            <input type="tel" name="phone"  className="input w-full" />
             {formErrors?.phone && <p className='text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md'>{formErrors.phone}</p>}
           </div>
         </div>
 
-        <div className='mb-5 flex flex-col sm:items-center gap-2 sm:flex-row '>
+        <div className='mb-5 flex flex-col sm:items-center relative gap-2 sm:flex-row '>
           <label className="sm:basis-40">Address:</label>
           <div className='grow'>
-            <input type="text" name="address" required className="input w-full" />
+            <input type="text" name="address" defaultValue={address}   className="input w-full" disabled={isLoadingAddress} />
+            {
+              !position.lat && !position.lng &&
+              <span className="absolute z-50 mt-[5px] right-[3px] geoBtn" >
+                <Button disabled={isLoadingAddress} type="small" onClick={(e) => {
+                  e.preventDefault()
+                  dispatch(fetchAddress())
+                }}>Get Position</Button>
+              </span>
+            }
+            {addressStatus === 'error' && <p className='text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md'>{errorAddress}</p>}
           </div>
+        
         </div>
 
         <div className="flex items-center space-x-2">
@@ -61,16 +87,16 @@ console.log(cart)
             type="checkbox"
             name="priority"
             id="priority"
-
-          // value={withPriority}
-          // onChange={(e) => setWithPriority(e.target.checked)}
+          value={withPriority}
+          onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label className="font-medium" htmlFor="priority">Want to give your order priority?</label>
         </div>
 
         <div className="mt-12">
           <input type="hidden" name='cart' value={JSON.stringify(cart)} />
-          <Button type="primary" disabled={isSubmitting}>{isSubmitting ? 'Placing order...' : 'Order now'}</Button>
+          <input type='hidden' name='position' value={position.lng && position.lat ? `${position.lat},${position.lng}`: ''} />
+          <Button type="primary" disabled={isSubmitting}>{isSubmitting || isLoadingAddress ? 'Placing order...' : `Order now from ${formatCurrency(totalPrice)}`}</Button>
         </div>
       </Form>
     </div>
@@ -80,6 +106,7 @@ console.log(cart)
 //On Form submission, a request is created that will be intercepted by the action function
 //It's possible by linking the form to the action function
 export async function action({ request }) {
+
   const formData = await request.formData()
   // console.log(formData)
   //convert to object
@@ -89,7 +116,7 @@ export async function action({ request }) {
   //transform data entries such as priorities to read boolean value
   const order = {
     ...data, cart: JSON.parse(data.cart),
-    priority: data.priority === "on"
+    priority: data.priority === "true"
   }
   // console.log(order)
 
@@ -101,10 +128,12 @@ export async function action({ request }) {
 
   //If everything is okay, create new order and redirect
   const newOrder = await createOrder(order);
-  console.log(newOrder)
+  // console.log(newOrder)
+
+  //Clears cart on sent order
+  store.dispatch(clearCart())
   //redirect on order creation
   return redirect(`/order/${newOrder.id}`);
-
 }
 
 export default CreateOrder;

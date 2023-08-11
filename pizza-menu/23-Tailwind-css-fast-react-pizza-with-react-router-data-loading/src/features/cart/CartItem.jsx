@@ -1,28 +1,21 @@
-import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
-import { useDispatch } from "react-redux";
-import { increaseItemQuantity } from "./cartSlice";
-import { decreaseItemQuantity } from "./cartSlice";
-import { deleteItem } from "./cartSlice";
+import DeleteItem from "../DeleteItem";
+import UpDatePizza from "../UpdatePizzaQuantity";
 /*eslint-disable*/ 
 
 function CartItem({ item }) {
   // console.log(item)
-  const { pizzaId, name, quantity , totalPrice } = item;
-
-  const dispatch = useDispatch()
+  const { pizzaId, name, quantity, totalPrice } = item;
 
   return (
     <li className="py-3 sm:flex sm:items-center sm:justify-between">
-      <p className="mb-1 sm:mb-0 flex">
-        <button className="mr-2 font-bold" onClick={()=>dispatch(increaseItemQuantity(pizzaId))}>+</button> 
-        {quantity} 
-        <button className="ml-2 mr-8 font-bold" onClick={()=>dispatch(decreaseItemQuantity(pizzaId))}>- </button> 
-       &times; {name}
-      </p>
+      <div className="mb-1 sm:mb-0 flex">
+       {quantity} &times; {name}
+      </div>
       <div className="flex justify-between items-center sm:gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
-        <Button  onClick={()=> dispatch(deleteItem(pizzaId))} type='small'>Delete</Button>
+        <UpDatePizza pizzaId={pizzaId} />
+        <DeleteItem pizzaId={pizzaId}/>
       </div>
     </li>
   );
